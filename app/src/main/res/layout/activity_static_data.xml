@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:padding="@dimen/activity_horizontal_margin"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Congratulations on anticipated arrival of your new family member. As you a have a child growing inside you, both mother and child need care to ensure safe and healthy delivery. We will remain as a helping hand during this whole process to guide you through the regency and after delivery care for mother and child.
+During pregnancy you have to take care of nutrition you are having and also take supplements provided by your nearest CHC and PHC, also proper vaccination should be taken care of before pregnancy as well as after delivery to ensure child’s good health in future. We will provide you with details and notify you from time to time about the vaccines and changes in nutrition or supplements from time to time. However there are few things you should be careful about during this time.
+·         Eat more food during pregnancy.
+·         Eat more whole grains, sprouted grams and fermented foods.
+·         Take milk/meat/eggs in adequate amounts.
+·         Eat plenty of vegetables and fruits.
+·         Avoid superstitions and food taboos.
+·         Do not use alcohol and tobacco. Take medicines only when prescribed.
+·         Take iron, folate and calcium supplements regularly, after 14-16 weeks of pregnancy and continue the same during lactation.
+
+This app will notify you through whole pregnancy and after delivery about the kind of nutrition you should be taking and the supplements. It will also notify the oncoming vaccination dates along with the location of nearest vaccination camp or hospital with facility.
+You can also use this app in case of prenatal, neonatal emergencies and for delivery to call ambulance or Janani express if available."
+            />
+
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok_got_it"
+                    android:id="@+id/staticDataButton"
+                    android:textColor="@color/textWhite"
+                    android:background="@color/colorPrimary"
+            />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
