@@ -14,4 +14,6 @@
 		providing email completions."
 	</string>
 	<string name="ok_got_it">Ok Got It</string>
+
+	<string name="unable_to_fetch">Unable to fetch members</string>
 </resources>
