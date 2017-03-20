@@ -6,17 +6,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.healthcare.activity.StaticContentActivity;
-import com.example.healthcare.services.BhamshahService;
+import com.example.healthcare.models.BhamashahDetails;
+import com.example.healthcare.models.Member;
+import com.example.healthcare.services.BhamashahService;
 import com.example.healthcare.services.HealthCareService;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 			.addConverterFactory(ScalarsConverterFactory.create())
 			.build();
 
-	private ArrayAdapter<String> eligibleMembersAdapter;
+	private ArrayAdapter<Member> eligibleMembersAdapter;
 
-	private String bhamashahId, dob, mId, pincode, address, name;
+	private Member member;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,17 +63,33 @@ public class LoginActivity extends AppCompatActivity {
 
 		ButterKnife.bind(LoginActivity.this);
 
-		List<String> eligibleMembersList;
+		final List<Member> eligibleMembersList;
 		if (savedInstanceState != null) {
 			eligibleMembersList = new ArrayList<>();
+			eligibleMembersList.add(new Member("Select mother"));
 		} else {
 			eligibleMembersList = new ArrayList<>();
+			eligibleMembersList.add(new Member("Select mother"));
 		}
-		eligibleMembersAdapter = new ArrayAdapter<String>(
+		eligibleMembersAdapter = new ArrayAdapter<Member>(
 				LoginActivity.this,
 				android.R.layout.simple_list_item_1,
 				android.R.id.text1,
 				eligibleMembersList);
+		eligibleMembers.setOnItemSelectedListener(
+				new AdapterView.OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view,
+							int position, long id) {
+						member = (Member) parent.getItemAtPosition(position);
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+				}
+		);
+		eligibleMembers.setAdapter(eligibleMembersAdapter);
 
 		bhamashahIdNo.addTextChangedListener(
 				new TextWatcher() {
@@ -91,24 +108,23 @@ public class LoginActivity extends AppCompatActivity {
 						int bhamashahMaxLimit = getResources().getInteger(R.integer.bhamashah_max_limit);
 						if (s.length() == bhamashahMaxLimit) {
 							eligibleMembersAdapter.clear();
+							eligibleMembersAdapter.add(new Member("Select mother"));
 							final String bhamashahIdNo = s.toString();
-							BhamshahService bhamashahService =
-									bhamashahRetrofit.create(BhamshahService.class);
+							BhamashahService bhamashahService =
+									bhamashahRetrofit.create(BhamashahService.class);
 							bhamashahService.
 									getInfo(bhamashahIdNo).enqueue(
 									new Callback<String>() {
 										@Override
 										public void onResponse(Call<String> call, Response<String> response) {
-											try {
-												JSONObject resp = new JSONObject(response.body());
-												JSONArray members = resp.getJSONArray("family_Details");
-												for (int i = 0; i < members.length(); ++i) {
-													JSONObject member = members.getJSONObject(i);
-													String name = member.getString("NAME_ENG");
-													eligibleMembersAdapter.add(name);
+											Gson gson = new Gson();
+											BhamashahDetails resp = gson.fromJson(response.body(), BhamashahDetails.class);
+											List<Member> members = resp.getMembers();
+											for (int i = 0; i < members.size(); ++i) {
+												Member member = members.get(i);
+												if (member.getGender() == Member.GENDER.FEMALE) {
+													eligibleMembersAdapter.add(member);
 												}
-											} catch (JSONException e) {
-												e.printStackTrace();
 											}
 											eligibleMembers.setAdapter(eligibleMembersAdapter);
 										}
@@ -132,8 +148,13 @@ public class LoginActivity extends AppCompatActivity {
 	public void register() {
 		HealthCareService healthCareService =
 				healthCareRetrofit.create(HealthCareService.class);
-		healthCareService.register(bhamashahIdNo.getText().toString(),
-				bhamashahId, dob, mId, pincode, address, name,
+		healthCareService.register(member.getBhamashahIdNo(),
+				member.getBhamashahId(),
+				member.getDob(),
+				member.getmId(),
+				member.getPincode(),
+				member.getAddress(),
+				member.getName(),
 				Integer.valueOf(pregnancyWeeks.getText().toString())).enqueue(
 			new Callback<String>() {
 				@Override

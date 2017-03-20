@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface BhamshahService {
+public interface BhamashahService {
 
 	@GET("app/live/Service/hofAndMember/ForApp/{bhamashahIdNo}?" +
 			"client_id=ad7288a4-7764-436d-a727-783a977f1fe1")
