@@ -47,10 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 			.addConverterFactory(ScalarsConverterFactory.create())
 			.build();
 
-	private Retrofit healthCareRetrofit = new Retrofit.Builder()
-			.baseUrl("http://192.168.43.21")
-			.addConverterFactory(ScalarsConverterFactory.create())
-			.build();
+	private Retrofit healthCareRetrofit;
 
 	private ArrayAdapter<Member> eligibleMembersAdapter;
 
@@ -62,6 +59,11 @@ public class LoginActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_login);
 
 		ButterKnife.bind(LoginActivity.this);
+
+		healthCareRetrofit = new Retrofit.Builder()
+			.baseUrl(getResources().getString(R.string.BASE_URL))
+			.addConverterFactory(ScalarsConverterFactory.create())
+			.build();
 
 		final List<Member> eligibleMembersList;
 		if (savedInstanceState != null) {
