@@ -8,4 +8,11 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="TextLabel" parent="TextAppearance.AppCompat">
+		<item name="android:textColorHint">@color/starNotSelected</item>
+		<item name="colorAccent">@color/textinputlabelhighligh</item>
+		<item name="colorControlNormal">@color/textinputlabelhighligh</item>
+		<item name="colorControlActivated">@color/textinputlabelhighligh</item>
+	</style>
+
 </resources>

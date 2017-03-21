@@ -4,4 +4,7 @@
 	<color name="colorPrimaryDark">#005B9A</color>
 	<color name="colorAccent">#FF4081</color>
 	<color name="textWhite">#FFFFFF</color>
+
+	<color name="starNotSelected">#757575</color>
+	<color name="textinputlabelhighligh">#42a5f5</color>
 </resources>
