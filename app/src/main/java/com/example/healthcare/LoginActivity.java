@@ -1,5 +1,15 @@
 package com.example.healthcare;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.healthcare.activity.StaticContentActivity;
+import com.example.healthcare.models.BhamashahDetails;
+import com.example.healthcare.models.Member;
+import com.example.healthcare.services.BhamashahService;
+import com.example.healthcare.services.HealthCareService;
+import com.google.gson.Gson;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,17 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.example.healthcare.activity.StaticContentActivity;
-import com.example.healthcare.models.BhamashahDetails;
-import com.example.healthcare.models.Member;
-import com.example.healthcare.services.BhamashahService;
-import com.example.healthcare.services.HealthCareService;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 			.build();
 
 	private Retrofit healthCareRetrofit = new Retrofit.Builder()
-			.baseUrl("https://apitest.sewadwaar.rajasthan.gov.in")
+			.baseUrl("http://192.168.43.21")
 			.addConverterFactory(ScalarsConverterFactory.create())
 			.build();
 
@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
 
 				@Override
 				public void onFailure(Call<String> call, Throwable t) {
+					Toast.makeText(LoginActivity.this, getString(R.string.unable_to_fetch), Toast.LENGTH_SHORT).show();
 				}
 			});
 	}
