@@ -1,7 +1,14 @@
 package com.example.healthcare.activity;
 
-import java.util.Arrays;
-import java.util.List;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.healthcare.R;
 import com.example.healthcare.adapter.TimelineRecyclerViewAdapter;
@@ -10,12 +17,9 @@ import com.example.healthcare.services.HealthCareService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import java.util.Arrays;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,8 +71,35 @@ public class TimelineActivity extends AppCompatActivity {
                 }
             }
         );
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_timeline, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.asha_centre:
+                Intent mapsAshaActivity = new Intent(TimelineActivity.this,
+                        MapsActivity.class);
+                mapsAshaActivity.putExtra(MapsActivity.TYPE, "Asha Center");
+                startActivity(mapsAshaActivity);
+                break;
 
+            case R.id.bhamashah_centre:
+                Intent mapsBhamashahActivity = new Intent(TimelineActivity.this,
+                        MapsActivity.class);
+                mapsBhamashahActivity.putExtra(
+                        MapsActivity.TYPE, "Bhamashah Center");
+                startActivity(mapsBhamashahActivity);
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
