@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">Maatr Utsav</string>
+	<string name="app_name">मातृत्व उत्सव</string>
 
 	<!-- Strings related to login -->
 	<string name="prompt_email">Email</string>
