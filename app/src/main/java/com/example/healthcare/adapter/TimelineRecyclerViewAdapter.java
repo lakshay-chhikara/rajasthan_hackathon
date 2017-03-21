@@ -38,19 +38,20 @@ public class TimelineRecyclerViewAdapter extends
 
         TimelineDO timelineDO = timelineDOs.get(i);
         TimelineViewHolder.timelineMonth.setText(timelineDO.getTimeline());
+        TimelineViewHolder.timelineSuppliments.setText(String.valueOf(timelineDO.getSuppliments()));
+
         if (TimelineDO.Type.BEFORE_BIRTH.name().equals(timelineDO.getType().name())) {
             TimelineViewHolder.timelineNutrition.setText(String.valueOf(timelineDO.getNutrition()));
             TimelineViewHolder.timelineVaccination.setText(String.valueOf(timelineDO.getVaccination()));
             TimelineViewHolder.timeLineTextView1.setText("Nutrition");
             TimelineViewHolder.timeLineTextView3.setText("Vaccination");
-        }else {
+        }
+        else {
             TimelineViewHolder.timelineNutrition.setText(String.valueOf(timelineDO.getVaccination()));
             TimelineViewHolder.timelineVaccination.setText(String.valueOf(timelineDO.getNutrition()));
             TimelineViewHolder.timeLineTextView1.setText("Vaccination");
             TimelineViewHolder.timeLineTextView3.setText("Nutrition");
         }
-
-        TimelineViewHolder.timelineSuppliments.setText(String.valueOf(timelineDO.getSuppliments()));
     }
 
     @Override
@@ -70,7 +71,8 @@ public class TimelineRecyclerViewAdapter extends
 
     static class TimelineViewHolder extends RecyclerView.ViewHolder{
 
-        TextView timelineMonth, timelineNutrition, timelineSuppliments, timelineVaccination, timeLineTextView1, timeLineTextView3;
+        TextView timelineMonth, timelineNutrition, timelineSuppliments,
+            timelineVaccination, timeLineTextView1, timeLineTextView2, timeLineTextView3;
         TimelineView timelineView;
 
         TimelineViewHolder(View v, int viewType) {
@@ -78,6 +80,7 @@ public class TimelineRecyclerViewAdapter extends
             timelineMonth = (TextView) v.findViewById(R.id.timelineMonth);
             timelineNutrition = (TextView) v.findViewById(R.id.timelineNutrition);
             timeLineTextView1 = (TextView) v.findViewById(R.id.timelineTextview1);
+            timeLineTextView2 = (TextView) v.findViewById(R.id.timelineTextview2);
             timeLineTextView3 = (TextView) v.findViewById(R.id.timelineTextview3);
             timelineSuppliments = (TextView) v.findViewById(R.id.timelineSuppliments);
             timelineVaccination = (TextView) v.findViewById(R.id.timelineVaccination);
